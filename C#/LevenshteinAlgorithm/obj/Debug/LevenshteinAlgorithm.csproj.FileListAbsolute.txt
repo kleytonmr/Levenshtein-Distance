@@ -1,0 +1,7 @@
+c:\users\admin\source\repos\LevenshteinAlgorithm\LevenshteinAlgorithm\obj\Debug\LevenshteinAlgorithm.csprojAssemblyReference.cache
+c:\users\admin\source\repos\LevenshteinAlgorithm\LevenshteinAlgorithm\obj\Debug\LevenshteinAlgorithm.csproj.CoreCompileInputs.cache
+c:\users\admin\source\repos\LevenshteinAlgorithm\LevenshteinAlgorithm\bin\Debug\LevenshteinAlgorithm.exe.config
+c:\users\admin\source\repos\LevenshteinAlgorithm\LevenshteinAlgorithm\bin\Debug\LevenshteinAlgorithm.exe
+c:\users\admin\source\repos\LevenshteinAlgorithm\LevenshteinAlgorithm\bin\Debug\LevenshteinAlgorithm.pdb
+c:\users\admin\source\repos\LevenshteinAlgorithm\LevenshteinAlgorithm\obj\Debug\LevenshteinAlgorithm.exe
+c:\users\admin\source\repos\LevenshteinAlgorithm\LevenshteinAlgorithm\obj\Debug\LevenshteinAlgorithm.pdb
