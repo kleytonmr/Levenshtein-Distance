@@ -21,14 +21,36 @@ def iterative_levenshtein(s, t):
             dist[row][col] = min(dist[row-1][col] + 1,      # deletion
                                  dist[row][col-1] + 1,      # insertion
                                  dist[row-1][col-1] + cost) # substitution
+    
     for r in range(rows):
         dist[r]
     
  
     return dist[row][col]
 
-print("Levenshtien distance: ", iterative_levenshtein("Kleyton Matos Ramos", "Kleyton M Ramos"))
+def compare(a,b):
+    distance = iterative_levenshtein(a, b)
+    
+    if distance == 0: 
+        return 100
+    
+    lenght = max(len(a),len(b))
 
+    if distance == lenght:
+        return 0
+    
+    inverted = invert(distance, lenght)
+    percent = (inverted/lenght)*100
+
+    return round(percent)
+
+
+def invert(min,max):
+    return max-min
+
+print("Levenshtien distance: ", iterative_levenshtein("notKley", "Kleyton"))
+
+print("Levenshtien distance: {0}%" .format(compare("notKley", "Kleyton")))
 
 
 
