@@ -1,64 +1,30 @@
-def iterative_levenshtein(s, t):
-  
-    rows = len(s)+1
-    cols = len(t)+1
-    dist = [[0 for x in range(cols)] for x in range(rows)]
-    # source prefixes can be transformed into empty strings 
-    # by deletions:
-    for i in range(1, rows):
-        dist[i][0] = i
-    # target prefixes can be created from an empty source string
-    # by inserting the characters
-    for i in range(1, cols):
-        dist[0][i] = i
+from openpyxl import load_workbook 
+import levenshtein
+
+# print("Levenshtien distance: ", levenshtein.iterative_levenshtein("notKley", "Kleyton"))
+# print("Levenshtien distance: {0}%" .format(levenshtein.compare("notKley", "Kleyton")))
+
+baseA = load_workbook('../bases/base_a.xlsx')
+baseB = load_workbook('../bases/base_b.xlsx')
+
+nameA = baseA['Sheet1']
+nameB = baseB['Sheet1']
+
+
+# for x in range(2,18000):
+#     print(nameA['A'+str(x)].value) 
+
+for line_A in nameA.rows:
+    for cell_A in line_A:
+        # print("NomeA:" + cell_A.value)
+        for line_B in nameB.rows:
+            for cell_B in line_B:
+                print("Comparei A: {0} com B: {1}" .format(cell_A.value, cell_B.value))
+                # print("NomeB:" + cell_B.value)
+                # if levenshtein.compare(cell_A.value,cell_B.value) >= 75:
+                    # print("São iguais e passam no teste: {0}, {1}. Nível de semelhança: {2}% " .format(cell_A.value,cell_B.value,levenshtein.compare(cell_A.value,cell_B.value)))
+
         
-    for col in range(1, cols):
-        for row in range(1, rows):
-            if s[row-1] == t[col-1]:
-                cost = 0
-            else:
-                cost = 1
-            dist[row][col] = min(dist[row-1][col] + 1,      # deletion
-                                 dist[row][col-1] + 1,      # insertion
-                                 dist[row-1][col-1] + cost) # substitution
-    
-    for r in range(rows):
-        dist[r]
-    
- 
-    return dist[row][col]
-
-def compare(a,b):
-    distance = iterative_levenshtein(a, b)
-    
-    if distance == 0: 
-        return 100
-    
-    lenght = max(len(a),len(b))
-
-    if distance == lenght:
-        return 0
-    
-    inverted = invert(distance, lenght)
-    percent = (inverted/lenght)*100
-
-    return round(percent)
-
-
-def invert(min,max):
-    return max-min
-
-print("Levenshtien distance: ", iterative_levenshtein("notKley", "Kleyton"))
-
-print("Levenshtien distance: {0}%" .format(compare("notKley", "Kleyton")))
-
-
-
-
-
-
-
-
 
 
 
