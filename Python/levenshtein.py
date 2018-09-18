@@ -4,6 +4,7 @@ def iterative_levenshtein(s, t):
     cols = len(t)+1
     dist = [[0 for x in range(cols)] for x in range(rows)]
     # source prefixes can be transformed into empty strings 
+    
     # by deletions:
     for i in range(1, rows):
         dist[i][0] = i
@@ -25,9 +26,9 @@ def iterative_levenshtein(s, t):
     for r in range(rows):
         dist[r]
     
- 
     return dist[row][col]
 
+# compare similarity in percentage
 def compare(a,b):
     distance = iterative_levenshtein(a, b)
     
@@ -48,8 +49,8 @@ def compare(a,b):
 def invert(min,max):
     return max-min
 
-# print("Levenshtien distance: ", iterative_levenshtein("notKley", "Kleyton"))
-# print("Levenshtien distance: {0}%" .format(compare("notKley", "Kleyton")))
+# print("Levenshtien distance: ", iterative_levenshtein("Kleyto ", "Kleyton"))
+# print("Levenshtien distance: {0}%" .format(compare("Kleyto", "Kleyton")))
 
 
 

@@ -1,18 +1,12 @@
 from openpyxl import load_workbook 
 import levenshtein
 
-# print("Levenshtien distance: ", levenshtein.iterative_levenshtein("notKley", "Kleyton"))
-# print("Levenshtien distance: {0}%" .format(levenshtein.compare("notKley", "Kleyton")))
-
+# test database
 baseA = load_workbook('../bases/base_a.xlsx')
 baseB = load_workbook('../bases/base_b.xlsx')
 
 nameA = baseA['Sheet1']
 nameB = baseB['Sheet1']
-
-
-# for x in range(2,18000):
-#     print(nameA['A'+str(x)].value) 
 
 for line_A in nameA.rows:
     for cell_A in line_A:
