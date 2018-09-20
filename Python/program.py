@@ -1,22 +1,41 @@
-from openpyxl import load_workbook 
-import levenshtein
+import levenshtein as ls 
+import pandas as pd 
+# https://pythonspot.com/pandas-filter/
+# https://chrisalbon.com/python/data_wrangling/filter_dataframes/
 
 # test database
-baseA = load_workbook('../bases/base_a.xlsx')
-baseB = load_workbook('../bases/base_b.xlsx')
+xlsx = pd.ExcelFile('../bases/Compacto_monitoramento_V19.xlsx')
+df_digitacao    = pd.read_excel(xlsx, 'Banco digitação')
+df_aux_juazeiro = pd.read_excel(xlsx, 'Aux_Juazeiro')
 
-nameA = baseA['Sheet1']
-nameB = baseB['Sheet1']
+def read_database(df1, df2):
+    temp = 0
+    for i, line_i in df1.iterrows():
+        if line_i['local'] == "Juazeiro":
+            if line_i['cod_inep'] != temp:
+                temp = line_i['cod_inep']
+                print(temp)
+            for j, line_j in df2.iterrows():
+                if line_i['cod_inep'] == line_j['EscolaID']:
+                    cod1 = line_i['cod_inep']
+                    cod2 = line_j['EscolaID']
+                    itaration(cod1,cod2, df1, df2)
+                    print("Passei aqui {0} {1}" . format(cod1, cod2))
 
-for line_A in nameA.rows:
-    for cell_A in line_A:
-        for line_B in nameB.rows:
-            for cell_B in line_B:
-                if levenshtein.compare(cell_A.value,cell_B.value) >= 85:
-                    print("Levenshtein: {0}, {1}. Nível de semelhança: {2}% " .format(cell_A.value,cell_B.value,levenshtein.compare(cell_A.value,cell_B.value)))
 
-        
+def itaration(cod1, cod2, df1, df2):
+    name1 = pd.DataFrame(df1[df1.cod_inep == cod1].nm_aluno)
+    name2 = pd.DataFrame(df2[df2.EscolaID == cod2].Nome_Aluno)
+    print("Cod1:{0} Cod2:{1}" . format(cod1,cod2))
+    
+    for i, line_i in name1.iterrows():
+        for j, line_j in name2.iterrows():
+            percent = ls.compare(line_i['nm_aluno'],line_j['Nome_Aluno'])
+            print("Nome1:{0}. Cod. Escola1:{1}. Nome2:{2}. Cod. Escola2:{3} {4}% " . format(line_i['nm_aluno'], cod1, line_j['Nome_Aluno'], cod2, percent ))
 
+            
+read_database(df_digitacao, df_aux_juazeiro)            
 
+                  
 
-
+    
