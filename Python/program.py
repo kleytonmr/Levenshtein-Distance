@@ -1,7 +1,12 @@
 import levenshtein as ls 
 import pandas as pd 
+import time
+import timeit
 # https://pythonspot.com/pandas-filter/
 # https://chrisalbon.com/python/data_wrangling/filter_dataframes/
+
+# calculate runtime
+start = timeit.default_timer()
 
 # test database
 xlsx = pd.ExcelFile('../bases/Compacto_monitoramento_V19.xlsx')
@@ -36,6 +41,7 @@ def itaration(cod1, cod2, df1, df2):
             
 read_database(df_digitacao, df_aux_juazeiro)            
 
-                  
+end = timeit.default_timer()
+print ('duration: %f' % (end - start))                  
 
     
