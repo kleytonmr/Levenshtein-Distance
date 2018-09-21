@@ -1,5 +1,5 @@
 def iterative_levenshtein(s, t):
-  
+    
     rows = len(s)+1
     cols = len(t)+1
     dist = [[0 for x in range(cols)] for x in range(rows)]
@@ -30,6 +30,7 @@ def iterative_levenshtein(s, t):
 
 # compare similarity in percentage
 def compare(a,b):
+
     distance = iterative_levenshtein(a, b)
     
     if distance == 0: 
@@ -48,9 +49,6 @@ def compare(a,b):
 
 def invert(min,max):
     return max-min
-
-# print("Levenshtien distance: ", iterative_levenshtein("Kleyto ", "Kleyton"))
-# print("Levenshtien distance: {0}%" .format(compare("Kleyto", "Kleyton")))
 
 
 
