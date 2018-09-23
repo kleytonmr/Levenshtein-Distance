@@ -11,17 +11,17 @@ xlsx = pd.ExcelFile('C:/Users/admin/Documents/Levenshtein-Distance/bases/Compact
 df_digitacao    = pd.read_excel(xlsx, 'Banco digitação')
 df_aux_feira = pd.read_excel(xlsx, 'Aux_Feira')
 
-
 def read_database(df1, df2):
     temp = 0
-    for line_i in df1.itertuples():
-        if line_i.local == 'Feira de Santana':
-            for line_j in df2.itertuples():
-                if line_i.cod_inep == line_j.inep_escola:
-                    if line_i.cod_inep != temp:
-                        temp = line_i.cod_inep
-                        cod1 = line_i.cod_inep
-                        cod2 = line_j.inep_escola
+
+    for i in df1.itertuples():
+        if i.local == 'Feira de Santana':
+            for j in df2.itertuples():
+                if i.cod_inep == j.inep_escola:
+                    if i.cod_inep != temp:
+                        temp = i.cod_inep
+                        cod1 = i.cod_inep
+                        cod2 = j.inep_escola
                         itaration(cod1,cod2, df1, df2)
                         print("Passei aqui {0} {1}" . format(cod1, cod2))
                         break
@@ -31,15 +31,16 @@ def read_database(df1, df2):
 def itaration(cod1, cod2, df1, df2):
     global appended_data
     appended_data = pd.DataFrame()
-    name1 = pd.DataFrame(df1[df1.cod_inep == cod1])
-    name2 = pd.DataFrame(df2[df2.inep_escola == cod2])
-    for i in name1.itertuples():
-        for j in name2.itertuples():
+
+    df_temp_a = pd.DataFrame(df1[df1.cod_inep == cod1])
+    df_temp_b = pd.DataFrame(df2[df2.inep_escola == cod2])
+
+    for i in df_temp_a.itertuples():
+        for j in df_temp_b.itertuples():
             percent = ls.compare(i.nm_aluno, j.aluno)
             df = {'index_a':i.Index+2, 'cod_escola_a': cod1,'ano_a:':i.ano_curso, 'aluno_a':i.nm_aluno, 'index_b':j.Index+2, 'cod_escola_b': cod2,'ano_b:':j.serie, 'aluno_b':j.aluno, 'Semelhanca %': percent}
             appended_data = appended_data.append(df, ignore_index=True)
             print("index:{0}, Nome:{1}, index:{2}, nome:{3} {4}%" . format(i.Index+2, i.nm_aluno, j.Index+2, j.aluno, percent))
-            # print("Nome1:{0}. Cod. Escola1:{1}. Nome2:{2}. Cod. Escola2:{3} {4}% " . format(i.nm_aluno, cod1, j.aluno, cod2, percent ))
 
 read_database(df_digitacao, df_aux_feira)  
 
@@ -48,8 +49,8 @@ appended_data.to_excel(writer,'Sheet1')
 writer.save()
 
 end = timeit.default_timer()
-print(appended_data)
-print ('duration: %f' % (end - start))                  
+print(appended_data.head(100))
+print ('Duration: %f' % (end - start))                  
 
 
     
