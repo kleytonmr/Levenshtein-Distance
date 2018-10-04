@@ -46,7 +46,6 @@ def compare(a,b):
 
     return round(percent)
 
-
 def invert(min,max):
     return max-min
 
