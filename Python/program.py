@@ -1,5 +1,6 @@
 import levenshtein as ls 
 import pandas as pd 
+from numba import jit
 
 class Generic:
 
@@ -10,7 +11,7 @@ class Generic:
 
         # set variable name 
         self.local = local
-        self.nm_a = nm_a
+        self.nm_a = nm_a    
         self.serie_a = serie_a
         self.nm_b = nm_b
         self.serie_b = serie_b
@@ -51,7 +52,6 @@ class Generic:
     def itaration(self,cod1, cod2, df1, df2): 
         df_temp_a = pd.DataFrame(df1[df1[self.school_a] == cod1])
         df_temp_b = pd.DataFrame(df2[df2[self.school_b] == cod2])
-
         for i in df_temp_a.itertuples():
             for j in df_temp_b.itertuples():
                 percent = ls.compare(getattr(i, self.nm_a), getattr(j, self.nm_b))
@@ -59,7 +59,7 @@ class Generic:
                 self.append = df
                 print("index:{0}, Nome:{1}, index:{2}, nome:{3} {4}%" . format(i.Index+2, getattr(i,self.nm_a), j.Index+2, getattr(j,self.nm_b), percent))
     
-    def export(self, file): #export bank group by "Semelhança"
+    def export(self, file): #export database group by "Semelhança"
         writer = pd.ExcelWriter(file)
         new_df = self.appended_data.loc[self.appended_data.groupby('aluno_a', sort=False)['Semelhanca %'].idxmax()]
         new_df.to_excel(writer,'Sheet1')
